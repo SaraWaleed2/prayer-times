@@ -1,9 +1,10 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography, useTheme } from "@mui/material";
 import PrayerCard from "./PrayerCard";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import moment from 'moment';
 import 'moment/dist/locale/ar-ly'
 moment.locale('ar');
@@ -34,6 +35,9 @@ const availableCitites = [
 ];
 
 export default function Prayer() {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
     const [timing, setTiming] = useState({
         Fajr: "00:00",
         Dhuhr: "00:00",
@@ -164,7 +168,7 @@ export default function Prayer() {
 
 
     return (
-        <div className="prayer-body" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
+        <div className="prayer-body" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: isMobile ? "100%" : "100vh" }}>
             <Container maxWidth="lg">
                 <div style={{ backgroundColor: " #ffffff4e", padding: "25px", borderRadius: "20px" }}>
                     <div className="city-info" style={{ marginBottom: "20px" }}>
@@ -172,10 +176,10 @@ export default function Prayer() {
 
                             <Grid size={6}>
                                 <div className="city-date" style={{ textAlign: "right" }}>
-                                    <Typography variant="subtitle2" color="text.secondary" style={{ fontSize: "17px", fontWeight: "700" }}>
+                                    <Typography variant="subtitle2" color="text.secondary" style={{ fontSize: isMobile ? "15px" : "17px", fontWeight: "700" }}>
                                         متبقى حتى الصلاه {prayersArray[nextPrayerIndex].displayName}
                                     </Typography>
-                                    <Typography variant="h3" style={{ color: "rgb(255, 255, 255) ", fontWeight: "700" }}>
+                                    <Typography variant={isMobile ? "h6" : 'h3'} style={{ color: "rgb(255, 255, 255) ", fontWeight: "700" }}>
                                         {remainingTime}
                                     </Typography>
 
@@ -184,10 +188,10 @@ export default function Prayer() {
 
                             <Grid size={6}>
                                 <div className="city-date" style={{ textAlign: "right" }}>
-                                    <Typography variant="subtitle2" color="text.secondary" style={{ fontSize: "17px", fontWeight: "700" }}>
+                                    <Typography variant="subtitle2" color="text.secondary" style={{ fontSize: isMobile ? "15px" : "17px", fontWeight: "700" }}>
                                         {dateAndTime}
                                     </Typography>
-                                    <Typography variant="h3" style={{ color: "rgb(255, 255, 255)", fontWeight: "700" }}>
+                                    <Typography variant={isMobile ? "h6" : 'h3'} style={{ color: "rgb(255, 255, 255)", fontWeight: "700" }}>
                                         {city.name}
                                     </Typography>
 
@@ -219,33 +223,10 @@ export default function Prayer() {
                             width: 200,
                             marginTop: "20px",
                             borderRadius: "10px",
-                            "& .MuiOutlinedInput-root": {
-                                "& fieldset": {
-                                    borderColor: "white",
-                                },
-                                "&:hover fieldset": {
-                                    borderColor: "white",
-                                },
-                                "&.Mui-focused fieldset": {
-                                    borderColor: "white"
-                                },
-                            },
-                            "& .MuiInputLabel-root": {
-                                color: "white",
-                            },
-                            "& .MuiInputLabel-root.Mui-focused": {
-                                color: "white"
-                            },
-                            "& .MuiSelect-icon": {
-                                color: "white"
-                            },
-                            "& .MuiInputBase-input": {
-                                color: "white",
-                            }
                         }}
                     >
                         {availableCitites.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
+                            <MenuItem key={option.value} value={option.value} >
                                 {option.name}
                             </MenuItem>
                         ))}
