@@ -155,7 +155,7 @@ export default function Prayer() {
 
 
         setRemainingTime(
-            ` ${moment.duration(remainingTime).hours()} : ${moment.duration(remainingTime).seconds()} :  ${moment.duration(remainingTime).minutes()} `
+            ` ${moment.duration(remainingTime).hours()} : ${moment.duration(remainingTime).minutes()} : ${ moment.duration(remainingTime).seconds()} `
         );
         console.log(
             "duration: ",
